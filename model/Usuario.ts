@@ -21,3 +21,5 @@ export class Usuario {
     this.senha = senha;
   }
 }
+
+export { Curso, Perfil };

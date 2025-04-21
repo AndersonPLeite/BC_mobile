@@ -8,3 +8,5 @@ export const app = initializeApp(firebaseConfig);
 // Inicializa o módulo de autenticação
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
+
+export default firebaseConfig;

@@ -1,5 +1,5 @@
-import { AuthContext } from "@/context/AuthProvider";
-import { Credential } from "@/model/type";
+import { AuthContext } from "../context/AuthProvider";
+import { Credential } from "../model/type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
 import { useContext, useEffect, useState } from "react";
@@ -89,10 +89,10 @@ export default function SignIn() {
 		>
 			<ScrollView>
 				<>
-					<Image
-						style={styles.image}
-						source={require("../assets/images/logo512.png")}
-					/>
+						<Image
+							style={styles.image}
+							source={require("../assets/images/logo512.png")}
+						/>
 					<Controller
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
@@ -155,7 +155,7 @@ export default function SignIn() {
 							color: theme.colors.tertiary,
 						}}
 						variant="labelMedium"
-						onPress={() => alert("Ir para tela Recuperar senha")}
+						onPress={() => router.push("../forgotPassword")}
 					>
 						Esqueceu sua senha?
 					</Text>

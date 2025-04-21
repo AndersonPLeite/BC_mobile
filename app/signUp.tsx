@@ -1,8 +1,9 @@
-import { Usuario } from "@/model/Usuario";
+import { AuthContext } from "../context/AuthProvider";
+import { Usuario, Curso, Perfil } from "../model/Usuario";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { Controller, set, useForm } from "react-hook-form";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { Button, Dialog, Text, TextInput, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -51,16 +52,31 @@ export default function SignUpScreen() {
 		mode: "onSubmit",
 		resolver: yupResolver(schema),
 	});
-	const [exibirSenha, setExibirSenha] = useState(true);
+	
+
+	const { signUp } = useContext<any>(AuthContext);
 	const [requisitando, setRequisitando] = useState(false);
+	const [exibirSenha, setExibirSenha] = useState(false);
 	const [dialogVisivel, setDialogVisivel] = useState(false);
 	const [mensagem, setMensagem] = useState({ tipo: "", mensagem: "" });
 	const [urlDevice, setUrlDevice] = useState<string | undefined>("");
+	
 
 	async function cadastrar(data: Usuario) {
-		console.log(data);
+		setRequisitando(true);
+		data.urlFoto = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+		data.curso = Curso.CSTSI;
+		data.perfil = Perfil.Aluno;
+		const msg = await signUp(data);
+	if (msg.tipo === "ok") {
+		setMensagem({ tipo: "ok", mensagem: "Cadastro realizado com sucesso" });
+	} else {
+		setMensagem({ tipo: "erro", mensagem: msg.mensagem });
 	}
-
+	setDialogVisivel(true);
+	setRequisitando(false);
+	}
+	
 	async function buscaNaGaleria() {
 		alert("busca na galeria");
 	}

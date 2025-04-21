@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import { AuthContext } from "@/context/AuthProvider";
+import { AuthContext } from "../../context/AuthProvider";
 import { router } from "expo-router";
 import React, { useContext, useState } from "react";
 import { StyleSheet } from "react-native";
