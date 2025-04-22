@@ -85,14 +85,15 @@ export default function SignIn() {
 
 	return (
 		<SafeAreaView
-			style={{ ...styles.container, backgroundColor: theme.colors.background }}
+			style={{ ...styles.container, backgroundColor: "#102237" }}
 		>
 			<ScrollView>
 				<>
-						<Image
-							style={styles.image}
-							source={require("../assets/images/logo512.png")}
-						/>
+					<Image
+						source={require("../assets//images/logo.jpeg")}
+						
+						style={styles.image}
+					/>
 					<Controller
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
@@ -197,40 +198,52 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: "center",
+		backgroundColor: "#102237",
 	},
 	image: {
-		width: 200,
-		height: 200,
-		alignSelf: "center",
-		borderRadius: 200 / 2,
-		marginTop: 100,
-		marginBottom: 40,
-	},
+			width: 320,
+			height: 200,
+			alignSelf: "center",
+			borderRadius: 50,
+			marginTop: 100,
+			marginBottom: 40,
+		  },
 	textinput: {
-		width: 350,
+		width: 300,
 		height: 50,
 		marginTop: 20,
 		backgroundColor: "transparent",
+		borderRadius: 50,
+		alignSelf: "center",
 	},
 	button: {
 		marginTop: 50,
 		marginBottom: 30,
-		width: 350,
+		width: 200,
+		backgroundColor: "#20b30d",
+		color: "#fff",
+		justifyContent: "center",
+		alignSelf: "center",
 	},
 	textDialog: {
 		textAlign: "center",
+		color: "#FFF",
 	},
 	divCadastro: {
 		marginTop: 20,
 		flexDirection: "row",
 		justifyContent: "center",
+		color: "#FFF",
+		alignItems: "center",
 	},
 	textCadastro: {},
 	textEsqueceuSenha: {
 		alignSelf: "flex-end",
 		marginTop: 20,
+		color: "#FFF",
 	},
 	textError: {
 		width: 350,
+
 	},
 });
