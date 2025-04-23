@@ -1,181 +1,110 @@
-import { useContext, useEffect, useState } from "react";
-// eslint-disable-next-line import/no-unresolved
-// Corrected path to the module
-import { useRouter } from "expo-router";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, useTheme } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, StyleSheet, Text, Image } from "react-native";
-import { TextInput } from "react-native-paper";
 import * as yup from "yup";
-import { AuthContext } from "../context/AuthProvider";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { auth } from "../firebase/firebaseConfig";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { TextInput, Button } from "react-native-paper";
+import { ScrollView } from "react-native";
+
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Email inválido")
+    .required("Campo obrigatório"),
+});
 
 export default function ForgotPassword() {
-    const { signIn } = useContext<any>(AuthContext);
-    const theme = useTheme();
-    const router = useRouter();
-    const [exibirSenha, setExibirSenha] = useState(true);
-    const [logando, setLogando] = useState(false);
-    const [dialogVisivel, setDialogVisivel] = useState(false);
-    const [mensagemDialog, setMensagemDialog] = useState("");
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<any>({
-        defaultValues: {
-            email: "",
-            senha: "",
-        },
-        resolver: yupResolver(
-            yup.object().shape({
-                email: yup
-                    .string()
-                    .email("Email inválido")
-                    .required("Campo obrigatório"),
-                senha: yup.string().required("Campo obrigatório"),
-            })
-        ),
-    });
-    useEffect(() => {
-        console.log("Renderizou");
-    });
-    type Credential = {
-        email: string;
-        senha: string;
-    };
-    
-    async function entrar(credencial: Credential) {
-        const response = await signIn({
-            email: credencial.email,
-            senha: credencial.senha,
-        });
-        if (response === "ok") {
-            setLogando(false);
-            router.replace("/(tabs)/home");
-        } else {
-            setMensagemDialog(response);
-            setDialogVisivel(true);
-            setLogando(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { email: "" },
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data: { email: string }) => {
+    try {
+     await sendPasswordResetEmail(auth, data.email);
+     // Removed incorrect call to sendPasswordResetEmail
+     alert("Um link de redefinição de senha foi enviado para o seu e-mail.");
+    } catch (error) {
+        console.error(error);
+        if(error.code === 'auth/user-not-found') {
+            alert("Usuário não encontrado.");
+        }  else {
+            alert("Erro ao enviar o e-mail. Tente novamente.");
         }
     }
-    return (
-        <SafeAreaView
-            style={{ ...styles.container, backgroundColor: theme.colors.background }}
-        >
-            <ScrollView>
-                <>
-                    <Text>
-                        Email de recuperação
-                    </Text>
-                    <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            
-                            <TextInput
-                                style={styles.textinput}
-                                placeholder="Digite seu email"
-                                mode="outlined"
-                                outlineColor={theme.colors.primary}
-                                activeOutlineColor={theme.colors.primary}
-                                theme={{
-                                    colors: {
-                                        primary: theme.colors.primary,
-                                    },
-                                }}
-                                onBlur={onBlur}
-                                onChangeText={(value) => {
-                                    onChange(value);
-                                }}
-                            />
-                        )}
-                        name="email"
-                        rules={{
-                            required: "Campo obrigatório",
-                            pattern: {
-                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                message: "Email inválido",
-                            },
-                        }}
-                        
-                    />
-                  
-                    {errors.email && (
-                        <Text style={{ color: "red", fontSize: 12 }}>
-                            {errors.email?.message?.toString()}
-                        </Text>
-                    )}
-                </>
-            </ScrollView>
-        </SafeAreaView>
-    );
 }
 
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Text style={styles.title}>Esqueci Minha Senha</Text>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              label="Email"
+              placeholder="Digite seu email"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+              error={!!errors.email}
+            />
+          )}
+        />
+        {errors.email && (
+          <Text style={styles.error}>{errors.email.message}</Text>
+        )}
+        <Button
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+          style={styles.button}
+        >
+          Enviar
+        </Button>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#102237",
-    },
- 
-    textinput: {
-       marginTop: 20,
-       width: "100%",
-       backgroundColor: "#fff",
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#102237",
+    textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
-    },
-
-    button: {
-        width: 350,
-        backgroundColor: "#102237",
-        color: "#fff",
-        borderRadius: 10,
-        fontFamily: "SpaceMono",
-        fontSize: 16,
-        padding: 10,
-    },
-    textDialog: {
-        textAlign: "center",
-        fontFamily: "SpaceMono",
-        fontSize: 16,
-        color: "#000",
-        backgroundColor: "#fff",
-        borderRadius: 10,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        elevation: 2,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-    },
-    divCadastro: {
-        marginTop: 20,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    textCadastro: {
-        fontFamily: "SpaceMono",
-        fontSize: 16,
-        color: "#000",
-        backgroundColor: "#fff",
-        borderRadius: 10,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        elevation: 2,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-    },
+    
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 40,
+    marginBottom: 20,
+    color: "#fff",
+  },
+  input: {
+    marginBottom: 20,
+    width: "100%",
+    backgroundColor: "#fff",
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: "#20b30d",
+    color: "#fff",
+  },
+  error: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
+  },
 });

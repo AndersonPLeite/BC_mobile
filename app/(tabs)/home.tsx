@@ -10,6 +10,7 @@ export default function Home() {
 				source={require("../../assets/images/logo.png")}
 				style={styles.image}
 			/>
+			
 		</SafeAreaView>
 	);
 }
