@@ -21,23 +21,30 @@ export default function Menu() {
 
 	return (
 		<SafeAreaView
-			style={{ ...styles.container, backgroundColor: theme.colors.background }}
+			style={{ ...styles.container, backgroundColor: "#102237",}}
 		>
 			<List.Item
 				title="Perfil"
+				style= {{ marginLeft: 30 }}
+				titleStyle={{ color: "#fff" }}
+				descriptionStyle={{ color: "#fff" }}
 				description="Atualize seu perfil ou exclua sua conta"
 				left={() => (
-					<List.Icon color={theme.colors.primary} icon="smart-card-outline" />
+					<List.Icon color={"#fff"} icon="smart-card-outline" />
 				)}
 				onPress={() => alert("em desenvolvimento")}
 			/>
 			<Divider />
 			<List.Item
+				style= {{ marginRight: 110 }}
 				title="Alterar Senha"
+				titleStyle={{ color: "#fff" }}
+				descriptionStyle={{ color: "#fff" }}
+				// description="Altere sua senha"
 				description="Altere sua senha"
 				left={() => (
 					<List.Icon
-						color={theme.colors.primary}
+						color={"#fff"}
 						icon="eye-arrow-right-outline"
 					/>
 				)}
@@ -46,9 +53,13 @@ export default function Menu() {
 			<Divider />
 			<List.Item
 				title="Sair"
+				style= {{ marginRight: 14 }}
 				description="Finaliza sua sessão no aplicativo"
-				left={() => <List.Icon color={theme.colors.primary} icon="exit-run" />}
+				titleStyle={{ color: "#fff" }}
+				descriptionStyle={{ color: "#fff" }}
+				left={() => <List.Icon color={"#fff"} icon="exit-run" />}
 				onPress={handleSair}
+				
 			/>
 			<Dialog
 				visible={dialogVisivel}
@@ -72,8 +83,10 @@ export default function Menu() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingLeft: 20,
+		
 		alignItems: "center",
+		alignContent: "center",
+		justifyContent: "center",
 	},
 	textDialog: {
 		textAlign: "center",
