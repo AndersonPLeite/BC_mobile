@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import TradingViewWidget from "./webView";
 
 export default function Home() {
 	return (
@@ -10,7 +11,7 @@ export default function Home() {
 				source={require("../../assets/images/logo.png")}
 				style={styles.image}
 			/>
-			
+			<TradingViewWidget />
 		</SafeAreaView>
 	);
 }
