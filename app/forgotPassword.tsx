@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text, Image } from "react-native";
 import { auth } from "../firebase/firebaseConfig";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { TextInput, Button } from "react-native-paper";
@@ -43,14 +43,17 @@ export default function ForgotPassword() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>Esqueci Minha Senha</Text>
+        <Image
+                source={require("../assets/images/logo.png")}
+                style={styles.image}
+              />
+        <Text style={styles.title}>Digite seu email para recuperar a senha</Text>
         <Controller
           control={control}
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               label="Email"
-              placeholder="Digite seu email"
               mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -67,6 +70,7 @@ export default function ForgotPassword() {
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           style={styles.button}
+          textColor="#fff"
         >
           Enviar
         </Button>
@@ -79,6 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    alignContent: "center",
     backgroundColor: "#102237",
     textAlign: "center",
     justifyContent: "center",
@@ -86,10 +91,11 @@ const styles = StyleSheet.create({
     
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
     marginTop: 40,
     marginBottom: 20,
+    textAlign: "center",
     color: "#fff",
   },
   input: {
@@ -107,4 +113,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 10,
   },
+  image: {
+		width: 320,
+		height: 200,
+		alignSelf: "center",
+		borderRadius: 50,
+    marginTop: 120,
+	}
 });

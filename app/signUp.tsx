@@ -87,7 +87,7 @@ export default function SignUpScreen() {
 
 	return (
 		<SafeAreaView
-			style={{ ...styles.container, backgroundColor: theme.colors.background }}
+			style={{ ...styles.container, backgroundColor: "#102237", borderColor: '#fff', }}
 		>
 			<ScrollView>
 				<>
@@ -105,6 +105,9 @@ export default function SignUpScreen() {
 							mode="outlined"
 							icon="image"
 							onPress={buscaNaGaleria}
+							textColor="#fff"
+							buttonColor="transparent"
+							
 						>
 							Galeria
 						</Button>
@@ -113,6 +116,9 @@ export default function SignUpScreen() {
 							mode="outlined"
 							icon="camera"
 							onPress={tiraFoto}
+							textColor="#fff"
+							buttonColor="transparent"
+							
 						>
 							Foto
 						</Button>
@@ -128,6 +134,7 @@ export default function SignUpScreen() {
 								mode="outlined"
 								autoCapitalize="words"
 								returnKeyType="next"
+								outlineColor="#fff"
 								onBlur={onBlur}
 								onChangeText={onChange}
 								value={value}
@@ -153,6 +160,7 @@ export default function SignUpScreen() {
 								autoCapitalize="none"
 								returnKeyType="next"
 								keyboardType="email-address"
+								outlineColor="#fff"
 								onBlur={onBlur}
 								onChangeText={onChange}
 								value={value}
@@ -179,6 +187,7 @@ export default function SignUpScreen() {
 								returnKeyType="next"
 								secureTextEntry={exibirSenha}
 								onBlur={onBlur}
+								outlineColor="#fff"
 								onChangeText={onChange}
 								value={value}
 								right={
@@ -206,6 +215,7 @@ export default function SignUpScreen() {
 								mode="outlined"
 								autoCapitalize="none"
 								returnKeyType="go"
+								outlineColor="#fff"
 								secureTextEntry={exibirSenha}
 								onBlur={onBlur}
 								onChangeText={onChange}
@@ -231,6 +241,7 @@ export default function SignUpScreen() {
 						onPress={handleSubmit(cadastrar)}
 						loading={requisitando}
 						disabled={requisitando}
+						textColor="#fff"
 					>
 						{!requisitando ? "Cadastrar" : "Cadastrando"}
 					</Button>
@@ -270,6 +281,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: "center",
+		backgroundColor: "#102237",
 	},
 	image: {
 		width: 200,
@@ -282,6 +294,7 @@ const styles = StyleSheet.create({
 		width: 350,
 		height: 50,
 		marginTop: 20,
+		borderColor: '#fff',
 		backgroundColor: "transparent",
 	},
 	textEsqueceuSenha: {
@@ -295,6 +308,8 @@ const styles = StyleSheet.create({
 	button: {
 		marginTop: 50,
 		marginBottom: 30,
+		backgroundColor: "#20b30d",
+		color: "#fff",
 	},
 	divButtonsImage: {
 		flexDirection: "row",
@@ -304,6 +319,7 @@ const styles = StyleSheet.create({
 	},
 	buttonImage: {
 		width: 180,
+		borderColor: "#fff",
 	},
 	textDialog: {
 		textAlign: "center",

@@ -32,23 +32,17 @@ export default function Menu() {
 				left={() => (
 					<List.Icon color={"#fff"} icon="smart-card-outline" />
 				)}
-				onPress={() => alert("em desenvolvimento")}
+				onPress={() => router.push("../updateProfile")}
 			/>
 			<Divider />
 			<List.Item
-				style= {{ marginRight: 110 }}
+				style={{ marginRight: 110 }}
 				title="Alterar Senha"
 				titleStyle={{ color: "#fff" }}
 				descriptionStyle={{ color: "#fff" }}
-				// description="Altere sua senha"
 				description="Altere sua senha"
-				left={() => (
-					<List.Icon
-						color={"#fff"}
-						icon="eye-arrow-right-outline"
-					/>
-				)}
-				onPress={() => alert("em desenvolvimento")}
+				left={() => <List.Icon color={"#fff"} icon="eye-arrow-right-outline" />}
+				onPress={() => router.push("../changePassword")} // Navega para a tela de Alterar Senha
 			/>
 			<Divider />
 			<List.Item

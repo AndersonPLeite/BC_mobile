@@ -104,6 +104,9 @@ export default function SignIn() {
 								mode="outlined"
 								autoCapitalize="none"
 								returnKeyType="next"
+								textColor="#fff"
+								placeholderTextColor="#fff"
+								outlineColor="#fff"
 								onBlur={onBlur}
 								onChangeText={onChange}
 								keyboardType="email-address"
@@ -129,6 +132,9 @@ export default function SignIn() {
 								returnKeyType="go"
 								secureTextEntry={exibirSenha}
 								onBlur={onBlur}
+								textColor="#fff"
+								placeholderTextColor="#fff"
+								outlineColor="#fff"
 								onChangeText={onChange}
 								right={
 									<TextInput.Icon
@@ -153,7 +159,7 @@ export default function SignIn() {
 					<Text
 						style={{
 							...styles.textEsqueceuSenha,
-							color: theme.colors.tertiary,
+							color: "#fff",
 						}}
 						variant="labelMedium"
 						onPress={() => router.push("../forgotPassword")}
@@ -164,6 +170,7 @@ export default function SignIn() {
 						style={styles.button}
 						mode="contained"
 						onPress={handleSubmit(entrar)}
+						textColor="#fff"
 					>
 						{!logando ? "Entrar" : "Entrando"}
 					</Button>
@@ -171,9 +178,10 @@ export default function SignIn() {
 					<View style={styles.divCadastro}>
 						<Text variant="labelMedium">Não tem uma conta?</Text>
 						<Text
-							style={{ ...styles.textCadastro, color: theme.colors.tertiary }}
+							style={{ ...styles.textCadastro, color: "#fff" }}
 							variant="labelMedium"
 							onPress={() => router.push("../signUp")}
+			
 						>
 							{" "}
 							Cadastre-se.
