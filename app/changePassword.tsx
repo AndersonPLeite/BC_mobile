@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, Image } from "react-native";
 import { TextInput, Button, Text } from "react-native-paper";
 import { AuthContext } from "../context/AuthProvider";
 import { updatePassword } from "firebase/auth";
@@ -38,6 +38,16 @@ export default function ChangePassword() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Image
+                source={require("../assets/images/logo.png")}
+                style={{
+                    width: 320,
+                    height: 200,
+                    alignSelf: "center",
+                    borderRadius: 50,
+                    marginTop: 20,
+                }}
+            />
             <Text style={styles.title}>Alterar Senha</Text>
             <TextInput
                 label="Nova Senha"

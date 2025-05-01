@@ -2,7 +2,7 @@
 import { AuthContext } from "../../context/AuthProvider";
 import { router } from "expo-router";
 import React, { useContext, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { Dialog, Divider, List, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -23,6 +23,17 @@ export default function Menu() {
 		<SafeAreaView
 			style={{ ...styles.container, backgroundColor: "#102237",}}
 		>
+			<Image
+				source={require("../../assets/images/logo.png")}
+				style={{
+					width: 320,
+					height: 200,
+					alignSelf: "center",
+					borderRadius: 50,
+					marginTop: 20,
+				}}
+			/>
+			
 			<List.Item
 				title="Perfil"
 				style= {{ marginLeft: 30 }}
